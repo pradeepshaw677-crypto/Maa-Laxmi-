@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Maa Laxmi · Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1><i class="fas fa-lotus"></i> Maa Laxmi</h1>
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span class="owner"><i class="fas fa-user-tie"></i> Jamuna Shaw</span>
+      <span class="dashboard-toggle" id="dashboardToggle">
+        <i class="fas fa-chart-pie"></i> Dashboard
+        <i class="fas fa-chevron-right" id="toggleIcon" style="font-size:0.7rem;"></i>
+      </span>
+      <span class="badge"><i class="fas fa-user-shield"></i> Admin · Firebase</span>
+    </div>
+  </header>
+
+  <!-- DASHBOARD STATS -->
+  <div class="stats-wrapper hidden" id="statsWrapper">
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-item"><span class="num" id="totalCustomers">0</span><span class="label">Customers</span></div>
+      <div class="stat-item highlight"><span class="num" id="totalMoney">₹0</span><span class="label">Total Money</span></div>
+      <div class="stat-item"><span class="num" id="totalInterest">₹0</span><span class="label">Interest</span></div>
+      <div class="stat-item"><span class="num" id="totalProfit">₹0</span><span class="label">Profit</span></div>
+      <div class="stat-item"><span class="num" id="totalLoss">₹0</span><span class="label">Loss</span></div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT -->
+  <div class="card" id="addEditCard">
+    <div class="card-title"><i class="fas fa-user-plus"></i> <span id="formTitle">Add customer</span> <span style="margin-left:auto; font-size:0.7rem; background:#f0ebe1; padding:0.2rem 1rem; border-radius:40px;" id="editIdDisplay"></span></div>
+    <form id="customerForm" class="form-grid">
+      <input type="hidden" id="editId" value="">
+      <div class="form-group"><label><i class="fas fa-user"></i> Name</label><input type="text" id="custName" placeholder="Name" required></div>
+      <div class="form-group"><label><i class="fas fa-phone-alt"></i> Mobile</label><input type="text" id="custMobile" placeholder="9876543210" required></div>
+      <div class="form-group"><label><i class="fas fa-home"></i> Address</label><input type="text" id="custAddress" placeholder="Address"></div>
+      <div class="form-group"><label><i class="fas fa-image"></i> Img URL</label><input type="url" id="custImg" placeholder="https://example.com/pic.jpg"></div>
+      <div class="form-group"><label><i class="fas fa-coins"></i> Loan (₹)</label><input type="number" id="loanTaken" placeholder="50000" required></div>
+      <div class="form-group"><label><i class="fas fa-calendar-alt"></i> Kab lia</label><input type="date" id="loanDate" required></div>
+      <div class="form-group"><label><i class="fas fa-tag"></i> Kisliye</label><input type="text" id="loanPurpose" placeholder="Purpose"></div>
+      <div class="form-group"><label><i class="fas fa-calendar-check"></i> Kab dega</label><input type="date" id="repayDate"></div>
+      <div class="form-group"><label><i class="fas fa-hand-holding-usd"></i> Paid (₹)</label><input type="number" id="paidAmount" placeholder="0" value="0"></div>
+      <div class="form-group"><label><i class="fas fa-percent"></i> Interest %</label><input type="number" id="interestRate" placeholder="12" value="12" step="0.1"></div>
+      <div class="form-group" style="grid-column: span 2; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save"></i> Save</button>
+        <button type="button" class="btn btn-outline btn-sm" id="clearFormBtn"><i class="fas fa-undo-alt"></i> Clear</button>
+        <span style="font-size:0.7rem; color:#6d5f4b;"><i class="fas fa-info-circle"></i> Baki = loan + interest - paid</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- CUSTOMER LIST -->
+  <div class="card">
+    <div class="card-title"><i class="fas fa-users"></i> Customers</div>
+    <div class="search-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search by name..." aria-label="Search customers">
+    </div>
+    <div id="customerGridContainer" class="customer-grid"></div>
+    <div class="footnote"><i class="fas fa-check-circle" style="color:var(--gold);"></i> जब baki = 0, "PAID" + Congrats</div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<!-- Firebase Config -->
+<script src="firebase-config.js"></script>
+
+<!-- Main App Script -->
+<script src="app.js"></script>
+</body>
+</html>
